@@ -26,24 +26,24 @@ int main() {
     // Create distribution to pull random index from
     std::uniform_int_distribution<int> dist(0, 999999);
 
-    int totals[] = {0,0}; // -1, +1
+    int plus_maj_count = 0;
     for (int i = 0; i < REPEAT; i++) {
         // Count +/- in each random selection and report
-        int counts[] = {0,0};
+        int plus_count = 0;
         for (int j = 0; j < SAMPLE_SIZE; j++) {
             int rand_idx = dist(gen);
-            if (samples[rand_idx] < 0) {
-                counts[0]++;
-            } else {
-                counts[1]++;
+            if (samples[rand_idx] > 0) {
+                plus_count++;
             }
         }
-        totals[0] += counts[0];
-        totals[1] += counts[1];
+        std::cout << plus_count << std::endl;
+        if (plus_count > SAMPLE_SIZE / 2) {
+            plus_maj_count++;
+        }
     }
-    std::cout << totals[0] << " " << totals[1] << std::endl;
-    std::cout << "Averages for " + std::to_string(SAMPLE_SIZE) + " random picks: " << std::endl;
-    std::cout << std::to_string(totals[0]/SAMPLE_SIZE) + " -1s" << std::endl;
-    std::cout << std::to_string(totals[1]/SAMPLE_SIZE) + " +1s" << std::endl;
+
+    float prob = (float)plus_maj_count/(float)REPEAT;
+    std::cout << "Probability of +1 majority for " + std::to_string(SAMPLE_SIZE) + " random picks: " << std::endl;
+    std::cout << std::to_string((int)(prob * 100)) << "%" << std::endl;
     return 0;
 }
