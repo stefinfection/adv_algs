@@ -6,7 +6,7 @@
 // https://stackoverflow.com/questions/19665818/generate-random-numbers-using-c11-random-library
 
 int main() {
-    int SAMPLE_SIZE = 400;
+    int SAMPLE_SIZE = 1500;
     int REPEAT = 100;
 
     // Create array with 1M entries: 52%+ 48%-
